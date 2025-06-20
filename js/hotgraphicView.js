@@ -24,6 +24,8 @@ class HotGraphicView extends ComponentView {
 
   setUpEventListeners() {
     this.listenTo(Adapt, 'device:changed', this.reRender);
+    this.listenTo(Adapt, 'drawer:opened', this.onDrawerOpened);
+    this.listenToOnce(Adapt, 'drawer:closed', this.onDrawerClosed);
   }
 
   reRender() {
@@ -119,8 +121,24 @@ class HotGraphicView extends ComponentView {
   }
 
   onPopupClosed() {
-    this.model.getActiveItem().toggleActive();
-    this._isPopupOpen = false;
+    if (this._isDrawerOpen) {
+      this._isDrawerOpen = false;
+      this.listenToOnce(Adapt, {
+        'popup:closed': this.onPopupClosed
+      });
+    } else {
+      this.model.getActiveItem().toggleActive();
+      this._isPopupOpen = false;
+    }
+  }
+
+  onDrawerOpened() {
+    this._isDrawerOpen = true;
+  }
+
+  onDrawerClosed() {
+    if (this._isPopupOpen) return;
+    this._isDrawerOpen = false;
   }
 
 }
