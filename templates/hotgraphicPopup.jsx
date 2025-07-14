@@ -19,7 +19,7 @@ export default function HotgraphicPopup(props) {
     const activeItemIndex = activeItem[0]._index;
     const focusElement = $(`.hotgraphic-popup__item[data-index=${activeItemIndex}]`);
 
-    a11y.focusFirst(focusElement);
+    a11y.focus(focusElement, {defer: false});
   });
 
   return (
@@ -57,10 +57,10 @@ export default function HotgraphicPopup(props) {
               <div className="hotgraphic-popup__item-content-inner">
 
                 <div
-                id={_isActive ? 'notify-heading' : null}
-                className="hotgraphic-popup__item-title"
-                role="heading"
-                aria-level={a11y.ariaLevel({ level: 'notify' })}
+                  id={_isActive ? 'notify-heading' : null}
+                  className="hotgraphic-popup__item-title"
+                  role="heading"
+                  aria-level={a11y.ariaLevel({ level: 'notify' })}
                 >
                   <div className={classes([
                     'hotgraphic-popup__item-title-inner',

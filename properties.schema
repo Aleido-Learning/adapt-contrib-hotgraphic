@@ -6,7 +6,7 @@
   "globals": {
     "ariaRegion": {
       "type": "string",
-      "required": true,
+      "required": false,
       "default": "Image with selectable areas. Select each button to show more information.",
       "inputType": "Text",
       "validators": [],
